@@ -23,15 +23,37 @@ typedef vector<pi> vpi;
 
 ////////////////////////Template ends////////////////////////
 
+ll n,k;
 
-
+bool isPossible(ll mid){
+    return n <= (mid*(mid-1)/2+1);
+}
 
 void solve(ll tc)
 {
     //start coding here
     
-    ll ans;
-    cout <<ans <<"\n";
+    cin >> n >> k;
+
+    ll ans,total = k*(k-1)/2 + 1;
+    if(n > total)
+        ans = -1;
+    else{
+        ll l=0,h=k;
+        while(l<=h){
+            ll mid = l + (h-l)/2;//mid is the number of splitters required
+            ll c = k - mid;//get left half 
+            ll x = total-(((c*(c-1))/2)+1)+1;//get count of outlets in right half of mid
+            if(x>=n){//if outlets are >=n we have our answer and we will procede our search in right side
+                ans = mid;
+                h = mid-1;
+            } else {
+                l = mid +1;
+            }
+        }
+    }
+ 
+    cout <<ans<<"\n";
 }
 
 ////////////////// main function to call test cases//////////////
